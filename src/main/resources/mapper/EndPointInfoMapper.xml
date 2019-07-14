@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.demo.dao.EndPointInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ly.demo.entity.EndPointInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="APP_NAME" jdbcType="VARCHAR" property="appName" />
+    <result column="APP_BUNDLE" jdbcType="VARCHAR" property="appBundle" />
+    <result column="APP_ID" jdbcType="VARCHAR" property="appId" />
+    <result column="APP_STOREURL" jdbcType="VARCHAR" property="appStoreurl" />
+    <result column="DEVICE_IDFA" jdbcType="VARCHAR" property="deviceIdfa" />
+    <result column="DEVICE_IP" jdbcType="VARCHAR" property="deviceIp" />
+    <result column="DEVICE_UA" jdbcType="VARCHAR" property="deviceUa" />
+    <result column="DEVICE_OS" jdbcType="VARCHAR" property="deviceOs" />
+    <result column="DEVICE_OSV" jdbcType="VARCHAR" property="deviceOsv" />
+    <result column="DEVICE_DEVICETYPE" jdbcType="VARCHAR" property="deviceDevicetype" />
+    <result column="DEVICE_CARRIER" jdbcType="VARCHAR" property="deviceCarrier" />
+    <result column="DEVICE_GEO" jdbcType="VARCHAR" property="deviceGeo" />
+    <result column="CREATETIME" jdbcType="DATE" property="createTime" />
+    <result column="PARTIDATE" jdbcType="TIMESTAMP" property="partiDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, APP_NAME, APP_BUNDLE, APP_ID, APP_STOREURL, DEVICE_IDFA, DEVICE_IP, DEVICE_UA, 
+    DEVICE_OS, DEVICE_OSV, DEVICE_DEVICETYPE, DEVICE_CARRIER, DEVICE_GEO,CREATETIME,PARTIDATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_ENDPOINT_INFOA
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID,DEVICE_IP,DEVICE_UA
+    from T_ENDPOINT_INFOA
+    where ID > (select currentid from T_CURRENT_ID limit 1) limit #{num,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_ENDPOINT_INFOA
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.ly.demo.entity.EndPointInfo">
+    insert into T_ENDPOINT_INFOA (APP_NAME, APP_BUNDLE,
+      APP_ID, APP_STOREURL, DEVICE_IDFA, 
+      DEVICE_IP, DEVICE_UA, DEVICE_OS, 
+      DEVICE_OSV, DEVICE_DEVICETYPE, DEVICE_CARRIER, 
+      DEVICE_GEO, CREATETIME,PARTIDATE)
+    values (#{appName,jdbcType=VARCHAR}, #{appBundle,jdbcType=VARCHAR},
+      #{appId,jdbcType=VARCHAR}, #{appStoreurl,jdbcType=VARCHAR}, #{deviceIdfa,jdbcType=VARCHAR}, 
+      #{deviceIp,jdbcType=VARCHAR}, #{deviceUa,jdbcType=VARCHAR}, #{deviceOs,jdbcType=VARCHAR}, 
+      #{deviceOsv,jdbcType=VARCHAR}, #{deviceDevicetype,jdbcType=VARCHAR}, #{deviceCarrier,jdbcType=VARCHAR}, 
+      #{deviceGeo,jdbcType=VARCHAR},now(),CURDATE()-1)
+  </insert>
+  <insert id="insertSelective" parameterType="com.ly.demo.entity.EndPointInfo">
+    insert into T_ENDPOINT_INFOA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="appName != null">
+        APP_NAME,
+      </if>
+      <if test="appBundle != null">
+        APP_BUNDLE,
+      </if>
+      <if test="appId != null">
+        APP_ID,
+      </if>
+      <if test="appStoreurl != null">
+        APP_STOREURL,
+      </if>
+      <if test="deviceIdfa != null">
+        DEVICE_IDFA,
+      </if>
+      <if test="deviceIp != null">
+        DEVICE_IP,
+      </if>
+      <if test="deviceUa != null">
+        DEVICE_UA,
+      </if>
+      <if test="deviceOs != null">
+        DEVICE_OS,
+      </if>
+      <if test="deviceOsv != null">
+        DEVICE_OSV,
+      </if>
+      <if test="deviceDevicetype != null">
+        DEVICE_DEVICETYPE,
+      </if>
+      <if test="deviceCarrier != null">
+        DEVICE_CARRIER,
+      </if>
+      <if test="deviceGeo != null">
+        DEVICE_GEO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appName != null">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appBundle != null">
+        #{appBundle,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appStoreurl != null">
+        #{appStoreurl,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIdfa != null">
+        #{deviceIdfa,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIp != null">
+        #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUa != null">
+        #{deviceUa,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceOs != null">
+        #{deviceOs,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceOsv != null">
+        #{deviceOsv,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceDevicetype != null">
+        #{deviceDevicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCarrier != null">
+        #{deviceCarrier,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceGeo != null">
+        #{deviceGeo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ly.demo.entity.EndPointInfo">
+    update T_ENDPOINT_INFOA
+    <set>
+      <if test="appName != null">
+        APP_NAME = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appBundle != null">
+        APP_BUNDLE = #{appBundle,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null">
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appStoreurl != null">
+        APP_STOREURL = #{appStoreurl,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIdfa != null">
+        DEVICE_IDFA = #{deviceIdfa,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIp != null">
+        DEVICE_IP = #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUa != null">
+        DEVICE_UA = #{deviceUa,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceOs != null">
+        DEVICE_OS = #{deviceOs,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceOsv != null">
+        DEVICE_OSV = #{deviceOsv,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceDevicetype != null">
+        DEVICE_DEVICETYPE = #{deviceDevicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCarrier != null">
+        DEVICE_CARRIER = #{deviceCarrier,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceGeo != null">
+        DEVICE_GEO = #{deviceGeo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ly.demo.entity.EndPointInfo">
+    update T_ENDPOINT_INFOA
+    set APP_NAME = #{appName,jdbcType=VARCHAR},
+      APP_BUNDLE = #{appBundle,jdbcType=VARCHAR},
+      APP_ID = #{appId,jdbcType=VARCHAR},
+      APP_STOREURL = #{appStoreurl,jdbcType=VARCHAR},
+      DEVICE_IDFA = #{deviceIdfa,jdbcType=VARCHAR},
+      DEVICE_IP = #{deviceIp,jdbcType=VARCHAR},
+      DEVICE_UA = #{deviceUa,jdbcType=VARCHAR},
+      DEVICE_OS = #{deviceOs,jdbcType=VARCHAR},
+      DEVICE_OSV = #{deviceOsv,jdbcType=VARCHAR},
+      DEVICE_DEVICETYPE = #{deviceDevicetype,jdbcType=VARCHAR},
+      DEVICE_CARRIER = #{deviceCarrier,jdbcType=VARCHAR},
+      DEVICE_GEO = #{deviceGeo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
