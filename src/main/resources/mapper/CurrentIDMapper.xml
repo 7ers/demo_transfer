@@ -4,9 +4,12 @@
   <resultMap id="BaseResultMap" type="com.ly.demo.entity.CurrentID">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="currentid" jdbcType="INTEGER" property="currentid" />
+    <result column="agent" jdbcType="VARCHAR" property="agent" />
+    <result column="onoff" jdbcType="INTEGER" property="onoff" />
+    <result column="groupsize" jdbcType="INTEGER" property="groupsize" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, currentid
+    id, currentid, agent, onoff, groupsize
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,6 +20,11 @@
   <update id="updateByPrimaryKey" parameterType="com.ly.demo.entity.CurrentID">
     update T_CURRENT_ID
     set currentid = #{currentid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateOnoffByPrimaryKey" parameterType="com.ly.demo.entity.CurrentID">
+    update T_CURRENT_ID
+    set onoff = #{onoff,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

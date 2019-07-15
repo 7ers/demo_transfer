@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 public interface CurrentDataService {
     int updateByPrimaryKey(CurrentID currentID);
     CurrentID selectByPrimaryKey(Integer id);
+    int updateOnoffByPrimaryKey(CurrentID currentID);
 }

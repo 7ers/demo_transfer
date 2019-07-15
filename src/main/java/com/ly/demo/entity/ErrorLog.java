@@ -11,6 +11,16 @@ public class ErrorLog {
 
     private Date createtime;
 
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
+    }
+
+    private Integer result;
+
     public Integer getId() {
         return id;
     }

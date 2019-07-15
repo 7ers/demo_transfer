@@ -6,14 +6,15 @@
     <result column="agent" jdbcType="VARCHAR" property="agent" />
     <result column="currentID" jdbcType="VARCHAR" property="currentid" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="result" jdbcType="INTEGER" property="result" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, agent, currentID, createtime
+    id, agent, currentID, createtime,result
   </sql>
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.ly.demo.entity.ErrorLog">
     insert into T_LOG_FAILURE (agent, currentID,
-      createtime)
+      createtime, result)
     values (#{agent,jdbcType=VARCHAR}, #{currentid,jdbcType=VARCHAR},
-      now())
+      now(),result)
   </insert>
 </mapper>

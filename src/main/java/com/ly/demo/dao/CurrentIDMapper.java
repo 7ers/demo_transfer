@@ -9,4 +9,6 @@ public interface CurrentIDMapper {
     CurrentID selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKey(CurrentID record);
+
+    int updateOnoffByPrimaryKey(CurrentID record);
 }

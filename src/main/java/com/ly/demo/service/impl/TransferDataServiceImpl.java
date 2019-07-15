@@ -10,6 +10,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,6 +19,8 @@ import java.io.IOException;
 
 @Service
 public class TransferDataServiceImpl implements TransferDataService {
+
+    private static final Logger logger = LoggerFactory.getLogger(TransferDataServiceImpl.class);
 
     /**
      * post请求传输json数据
@@ -31,6 +35,7 @@ public class TransferDataServiceImpl implements TransferDataService {
     @Override
     public String sendPostDataByJson(String url, String json, String encoding) throws ClientProtocolException, IOException {
         String result = "";
+        int statusCode = 0;
 
         // 创建httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -46,18 +51,20 @@ public class TransferDataServiceImpl implements TransferDataService {
         try{
             response = httpClient.execute(httpPost);
         }catch (ClientProtocolException cpe){
-            cpe.printStackTrace();
+            logger.error(cpe.getMessage());
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
-
-        int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode == HttpStatus.SC_OK) {
-            result = EntityUtils.toString(response.getEntity(), "utf-8");
+        if(response!=null){
+            statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == HttpStatus.SC_OK) {
+                result = EntityUtils.toString(response.getEntity(), "utf-8");
+            }
+            // 释放链接
+            response.close();
         }
-        // 释放链接
-        response.close();
+
 
         return String.valueOf(statusCode);
     }

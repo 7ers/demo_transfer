@@ -22,4 +22,9 @@ public class CurrentDataServiceImpl implements CurrentDataService {
     public CurrentID selectByPrimaryKey(Integer id) {
         return currentIDMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int updateOnoffByPrimaryKey(CurrentID currentID) {
+        return currentIDMapper.updateOnoffByPrimaryKey(currentID);
+    }
 }
