@@ -15,6 +15,6 @@
     insert into T_LOG_FAILURE (agent, currentID,
       createtime, result)
     values (#{agent,jdbcType=VARCHAR}, #{currentid,jdbcType=VARCHAR},
-      now(),result)
+      now(),#{result,jdbcType=INTEGER})
   </insert>
 </mapper>
